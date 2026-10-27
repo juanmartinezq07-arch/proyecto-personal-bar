@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+
+<section class="container section narrow">
+  <h1>Acceso administración</h1>
+  <p class="muted">Ingresá con el usuario administrador para gestionar el sitio.</p>
+
+  <form class="card form" method="post" action="/admin/login">
+    <div class="field">
+      <label for="username">Usuario</label>
+      <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+    </div>
+    <div class="field">
+      <label for="password">Contraseña</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+    </div>
+    <button class="btn btn-primary" type="submit">Ingresar</button>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>

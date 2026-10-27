@@ -1,0 +1,23 @@
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong><%= local ? local.nombre : 'ficticio' %></strong>
+        <p><%= local && local.direccion ? local.direccion : 'Mendoza, Argentina' %></p>
+        <% if (local && local.telefono) { %><p><%= local.telefono %></p><% } %>
+      </div>
+      <div class="footer-links">
+        <a href="/menu">Menú</a>
+        <a href="/nosotros">Sobre nosotros</a>
+        <% if (typeof currentUser !== 'undefined' && currentUser) { %>
+          <a href="/admin">Panel</a>
+        <% } else { %>
+          <a href="/admin/login">Acceso administración</a>
+        <% } %>
+      </div>
+    </div>
+    <p class="footer-note">Proyecto de portfolio · Bar ficticio</p>
+  </footer>
+</body>
+</html>

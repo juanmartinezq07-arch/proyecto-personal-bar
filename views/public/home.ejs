@@ -1,0 +1,74 @@
+<%- include('../partials/header') %>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <p class="eyebrow">Mendoza, Argentina</p>
+    <h1><%= local ? local.nombre : 'ficticio' %></h1>
+    <p class="hero-text">
+      <%= local && local.descripcion_corta ? local.descripcion_corta : 'Un bar para compartir buenos momentos.' %>
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/menu">Ver el menú</a>
+      <a class="btn btn-ghost" href="/nosotros">Conocernos</a>
+    </div>
+  </div>
+</section>
+
+<section class="container section-grid">
+  <article class="card">
+    <h2>Horarios</h2>
+    <% const horarios = local && Array.isArray(local.horarios_json) ? local.horarios_json : []; %>
+    <% if (horarios.length > 0) { %>
+      <ul class="plain-list">
+        <% horarios.forEach((item) => { %>
+          <li><span><%= item.dias %></span><strong><%= item.horario %></strong></li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p class="muted">Horarios a confirmar.</p>
+    <% } %>
+  </article>
+
+  <article class="card">
+    <h2>Ubicación</h2>
+    <p><%= local && local.direccion ? local.direccion : 'Mendoza, Argentina' %></p>
+    <% if (local && local.telefono) { %>
+      <p class="muted">Teléfono: <%= local.telefono %></p>
+    <% } %>
+    <% if (local && local.ubicacion_link) { %>
+      <a class="btn btn-ghost" href="<%= local.ubicacion_link %>" target="_blank" rel="noopener">Ver en el mapa</a>
+    <% } %>
+  </article>
+</section>
+
+<section class="container section">
+  <div class="section-heading">
+    <h2>Nuestro menú</h2>
+    <a href="/menu">Ver todo</a>
+  </div>
+
+  <% if (categories.length === 0) { %>
+    <p class="muted">Estamos preparando el menú.</p>
+  <% } else { %>
+    <div class="category-grid">
+      <% categories.slice(0, 4).forEach((category) => { %>
+        <article class="card category-card">
+          <h3><%= category.nombre %></h3>
+          <% if (category.descripcion) { %><p class="muted"><%= category.descripcion %></p><% } %>
+          <p><%= category.productos.length %> producto<%= category.productos.length === 1 ? '' : 's' %></p>
+          <a href="/menu#categoria-<%= category.id %>">Ver categoría</a>
+        </article>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<section class="container section about-preview">
+  <h2>Sobre nosotros</h2>
+  <p>
+    <%= local && local.descripcion_larga ? local.descripcion_larga : 'Conocé la historia detrás del bar.' %>
+  </p>
+  <a class="btn btn-ghost" href="/nosotros">Leer más</a>
+</section>
+
+<%- include('../partials/footer') %>

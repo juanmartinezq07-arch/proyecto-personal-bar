@@ -1,0 +1,10 @@
+<nav class="admin-nav" aria-label="Navegación del panel">
+  <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Resumen</a>
+  <a href="/admin/categorias" class="<%= currentPath.startsWith('/admin/categorias') ? 'active' : '' %>">Categorías</a>
+  <a href="/admin/productos" class="<%= currentPath.startsWith('/admin/productos') ? 'active' : '' %>">Productos</a>
+  <a href="/admin/local" class="<%= currentPath === '/admin/local' ? 'active' : '' %>">Datos del local</a>
+  <a href="/" target="_blank" rel="noopener">Ver sitio</a>
+  <form action="/admin/logout" method="post" class="logout-form">
+    <button type="submit" class="link-button">Cerrar sesión</button>
+  </form>
+</nav>

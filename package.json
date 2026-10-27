@@ -1,0 +1,22 @@
+{
+  "name": "proyecto-personal-bar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicación web para un bar ficticio en Mendoza - proyecto de portfolio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:setup": "node seeds/setup.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "connect-pg-simple": "^10.0.0",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3"
+  }
+}

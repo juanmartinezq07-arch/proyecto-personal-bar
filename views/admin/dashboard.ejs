@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+<div class="container section">
+  <%- include('../partials/admin-nav') %>
+
+  <div class="page-heading admin-heading">
+    <div>
+      <p class="eyebrow">Administración</p>
+      <h1>Resumen</h1>
+    </div>
+    <a class="btn btn-primary" href="/admin/productos/nuevo">Nuevo producto</a>
+  </div>
+
+  <div class="stat-grid">
+    <article class="card stat">
+      <span class="stat-value"><%= totals.categories %></span>
+      <span class="muted">Categorías</span>
+      <a href="/admin/categorias">Gestionar</a>
+    </article>
+    <article class="card stat">
+      <span class="stat-value"><%= totals.products %></span>
+      <span class="muted">Productos</span>
+      <a href="/admin/productos">Gestionar</a>
+    </article>
+    <article class="card stat">
+      <span class="stat-value"><%= local ? 'OK' : '—' %></span>
+      <span class="muted">Datos del local</span>
+      <a href="/admin/local">Editar</a>
+    </article>
+  </div>
+
+  <div class="card">
+    <h2>Qué podés hacer</h2>
+    <ul class="plain-list">
+      <li><span>Crear, editar, ocultar y ordenar categorías.</span><a href="/admin/categorias">Ir</a></li>
+      <li><span>Crear, editar, ocultar, marcar disponibilidad y subir imágenes de productos.</span><a href="/admin/productos">Ir</a></li>
+      <li><span>Actualizar nombre, descripción, horarios, dirección y contacto del local.</span><a href="/admin/local">Ir</a></li>
+    </ul>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

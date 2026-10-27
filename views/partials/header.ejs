@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' · ' + (local ? local.nombre : 'ficticio') : (local ? local.nombre : 'ficticio') %></title>
+  <meta name="description" content="<%= local && local.descripcion_corta ? local.descripcion_corta : 'Bar ficticio en Mendoza, Argentina.' %>">
+  <link rel="stylesheet" href="/css/style.css">
+  <% if (typeof currentPath !== 'undefined' && currentPath.startsWith('/admin')) { %>
+    <link rel="stylesheet" href="/css/admin.css">
+  <% } %>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/"><%= local ? local.nombre : 'ficticio' %></a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="/" class="<%= typeof currentPath !== 'undefined' && currentPath === '/' ? 'active' : '' %>">Inicio</a>
+        <a href="/menu" class="<%= typeof currentPath !== 'undefined' && currentPath === '/menu' ? 'active' : '' %>">Menú</a>
+        <a href="/nosotros" class="<%= typeof currentPath !== 'undefined' && currentPath === '/nosotros' ? 'active' : '' %>">Sobre nosotros</a>
+      </nav>
+    </div>
+  </header>
+
+  <% if (typeof flash !== 'undefined' && flash) { %>
+    <div class="container">
+      <div class="flash flash-<%= flash.type %>" role="status"><%= flash.message %></div>
+    </div>
+  <% } %>
+
+  <main>

@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+
+<section class="container page-heading">
+  <p class="eyebrow">Nuestra historia</p>
+  <h1>Sobre nosotros</h1>
+</section>
+
+<section class="container section about-layout">
+  <div class="card">
+    <p><%= local && local.descripcion_larga ? local.descripcion_larga : 'Somos un bar ficticio creado como proyecto de aprendizaje y portfolio.' %></p>
+    <p class="muted">
+      Este sitio fue desarrollado como proyecto personal para practicar desarrollo web completo:
+      backend, base de datos, panel de administración y diseño de interfaz.
+    </p>
+  </div>
+
+  <aside class="card">
+    <h2>Visitanos</h2>
+    <p><%= local && local.direccion ? local.direccion : 'Mendoza, Argentina' %></p>
+    <% if (local && local.telefono) { %><p class="muted"><%= local.telefono %></p><% } %>
+    <% if (local && local.ubicacion_link) { %>
+      <a class="btn btn-ghost" href="<%= local.ubicacion_link %>" target="_blank" rel="noopener">Ver ubicación</a>
+    <% } %>
+    <% const horarios = local && Array.isArray(local.horarios_json) ? local.horarios_json : []; %>
+    <% if (horarios.length > 0) { %>
+      <ul class="plain-list">
+        <% horarios.forEach((item) => { %>
+          <li><span><%= item.dias %></span><strong><%= item.horario %></strong></li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </aside>
+</section>
+
+<%- include('../partials/footer') %>

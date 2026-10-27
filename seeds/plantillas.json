@@ -1,0 +1,45 @@
+# Plantillas para datos iniciales - Bar "ficticio"
+
+## LocalInfo (singleton)
+```json
+{
+  "nombre": "ficticio",
+  "descripcion_corta": "Bar ficticio en Mendoza, Argentina.",
+  "descripcion_larga": "Un bar pensado para compartir momentos. Propuesta con fines de aprendizaje y portfolio.",
+  "direccion": "Calle Ficticia 123, Mendoza, Argentina",
+  "horarios_json": "[{\"dias\":\"Lunes a Viernes\",\"horario\":\"18:00 - 01:00\"},{\"dias\":\"Sábados y Domingos\",\"horario\":\"17:00 - 02:00\"}]",
+  "ubicacion_link": "https://maps.google.com",
+  "telefono": "+54 261 000-0000"
+}
+```
+
+## UsuarioAdmin (único inicial)
+```json
+{
+  "username": "admin",
+  "password_plain": "admin123",
+  "rol": "admin",
+  "activo": true
+}
+```
+*Nota:* `password_plain` solo para referencia de plantilla/seed. Nunca guardar plano - usar `bcrypt`.
+
+## Categorías de ejemplo
+```json
+[
+  {"nombre": "Cervezas", "orden": 1, "activo": true},
+  {"nombre": "Tragos", "orden": 2, "activo": true},
+  {"nombre": "Pizzas", "orden": 3, "activo": true},
+  {"nombre": "Bebidas sin alcohol", "orden": 4, "activo": true}
+]
+```
+
+## Productos de ejemplo
+```json
+[
+  {"categoria_nombre": "Cervezas", "nombre": "Pinta Artesanal", "descripcion": "Tirada fresca", "precio": 2500.00, "disponible": true, "visible": true, "orden": 1, "imagen_path": null},
+  {"categoria_nombre": "Tragos", "nombre": "Fernet con Cola", "descripcion": "Clásico mendocino", "precio": 3200.00, "disponible": true, "visible": true, "orden": 1, "imagen_path": null},
+  {"categoria_nombre": "Pizzas", "nombre": "Muzzarella", "descripcion": "Salsa, muzzarella y orégano", "precio": 8500.00, "disponible": true, "visible": true, "orden": 1, "imagen_path": null},
+  {"categoria_nombre": "Bebidas sin alcohol", "nombre": "Agua Mineral", "descripcion": "500ml", "precio": 1200.00, "disponible": true, "visible": true, "orden": 1, "imagen_path": null}
+]
+```

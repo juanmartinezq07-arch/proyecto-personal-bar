@@ -1,0 +1,62 @@
+<%- include('../partials/header') %>
+
+<section class="container page-heading">
+  <p class="eyebrow">Carta</p>
+  <h1>Menú</h1>
+</section>
+
+<% if (categories.length === 0) { %>
+  <section class="container section">
+    <p class="muted">Todavía no hay categorías publicadas.</p>
+  </section>
+<% } else { %>
+  <section class="container section menu-layout">
+    <nav class="menu-index card" aria-label="Categorías del menú">
+      <h2>Categorías</h2>
+      <ul class="plain-list">
+        <% categories.forEach((category) => { %>
+          <li><a href="#categoria-<%= category.id %>"><%= category.nombre %></a></li>
+        <% }) %>
+      </ul>
+    </nav>
+
+    <div class="menu-content">
+      <% categories.forEach((category) => { %>
+        <section class="menu-category" id="categoria-<%= category.id %>">
+          <h2><%= category.nombre %></h2>
+          <% if (category.descripcion) { %><p class="muted"><%= category.descripcion %></p><% } %>
+
+          <% if (category.productos.length === 0) { %>
+            <p class="muted">Sin productos por ahora.</p>
+          <% } else { %>
+            <ul class="product-list">
+              <% category.productos.forEach((product) => { %>
+                <li class="product-item <%= product.disponible ? '' : 'is-unavailable' %>">
+                  <div class="product-image">
+                    <% if (product.imagen_path) { %>
+                      <img src="<%= product.imagen_path %>" alt="<%= product.nombre %>" loading="lazy">
+                    <% } else { %>
+                      <div class="image-placeholder" aria-hidden="true"><%= product.nombre.charAt(0) %></div>
+                    <% } %>
+                  </div>
+                  <div class="product-info">
+                    <div class="product-title">
+                      <h3><%= product.nombre %></h3>
+                      <span class="price"><%= formatPrice(product.precio) %></span>
+                    </div>
+                    <% if (product.descripcion) { %><p class="muted"><%= product.descripcion %></p><% } %>
+                    <% if (!product.disponible) { %>
+                      <span class="badge">No disponible</span>
+                    <% } %>
+                  </div>
+                </li>
+              <% }) %>
+            </ul>
+          <% } %>
+        </section>
+      <% }) %>
+    </div>
+  </section>
+<% } %>
+
+<%- include('../partials/footer') %>

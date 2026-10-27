@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<div class="container section">
+  <%- include('../partials/admin-nav') %>
+
+  <div class="page-heading admin-heading">
+    <div>
+      <p class="eyebrow">Configuración</p>
+      <h1>Datos del local</h1>
+    </div>
+  </div>
+
+  <% if (errors.length > 0) { %>
+    <div class="flash flash-error">
+      <ul>
+        <% errors.forEach((error) => { %><li><%= error %></li><% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form class="card form" method="post" action="/admin/local">
+    <div class="form-grid">
+      <div class="field">
+        <label for="nombre">Nombre del bar</label>
+        <input id="nombre" name="nombre" type="text" value="<%= form.nombre %>" required maxlength="120">
+      </div>
+      <div class="field">
+        <label for="telefono">Teléfono</label>
+        <input id="telefono" name="telefono" type="text" value="<%= form.telefono %>" maxlength="50">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="descripcion_corta">Descripción corta <span class="muted">(se muestra en el inicio)</span></label>
+      <textarea id="descripcion_corta" name="descripcion_corta" rows="2" maxlength="300"><%= form.descripcion_corta %></textarea>
+    </div>
+
+    <div class="field">
+      <label for="descripcion_larga">Descripción larga <span class="muted">(se muestra en "Sobre nosotros")</span></label>
+      <textarea id="descripcion_larga" name="descripcion_larga" rows="6" maxlength="2000"><%= form.descripcion_larga %></textarea>
+    </div>
+
+    <div class="field">
+      <label for="direccion">Dirección</label>
+      <input id="direccion" name="direccion" type="text" value="<%= form.direccion %>" maxlength="255">
+    </div>
+
+    <div class="field">
+      <label for="horarios_texto">Horarios <span class="muted">(un horario por línea, formato: Días | Horario)</span></label>
+      <textarea id="horarios_texto" name="horarios_texto" rows="4" placeholder="Lunes a Viernes | 18:00 - 01:00"><%= form.horarios_texto %></textarea>
+    </div>
+
+    <div class="field">
+      <label for="ubicacion_link">Link de ubicación <span class="muted">(Google Maps u otro)</span></label>
+      <input id="ubicacion_link" name="ubicacion_link" type="url" value="<%= form.ubicacion_link %>" placeholder="https://maps.google.com/...">
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Guardar cambios</button>
+      <a class="btn btn-ghost" href="/admin">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,91 @@
+<%- include('../../partials/header') %>
+
+<div class="container section">
+  <%- include('../../partials/admin-nav') %>
+
+  <div class="page-heading admin-heading">
+    <div>
+      <p class="eyebrow">Catálogo</p>
+      <h1><%= product ? 'Editar producto' : 'Nuevo producto' %></h1>
+    </div>
+    <a class="btn btn-ghost" href="/admin/productos">Volver</a>
+  </div>
+
+  <% if (errors.length > 0) { %>
+    <div class="flash flash-error">
+      <ul>
+        <% errors.forEach((error) => { %><li><%= error %></li><% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form class="card form" method="post" enctype="multipart/form-data" action="<%= product ? '/admin/productos/' + product.id : '/admin/productos' %>">
+    <div class="form-grid">
+      <div class="field">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" type="text" value="<%= form.nombre %>" required maxlength="120">
+      </div>
+
+      <div class="field">
+        <label for="categoria_id">Categoría</label>
+        <select id="categoria_id" name="categoria_id" required>
+          <option value="">Seleccioná una categoría</option>
+          <% categories.forEach((category) => { %>
+            <option value="<%= category.id %>" <%= String(form.categoria_id) === String(category.id) ? 'selected' : '' %>>
+              <%= category.nombre %><%= category.activo ? '' : ' (oculta)' %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="descripcion">Descripción <span class="muted">(opcional)</span></label>
+      <textarea id="descripcion" name="descripcion" rows="3" maxlength="500"><%= form.descripcion %></textarea>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label for="precio">Precio (ARS)</label>
+        <input id="precio" name="precio" type="text" inputmode="decimal" value="<%= form.precio %>" placeholder="Ej: 2500 o 2500,50" required>
+      </div>
+
+      <div class="field checkbox-field">
+        <label class="checkbox">
+          <input type="checkbox" name="disponible" <%= form.disponible ? 'checked' : '' %>>
+          <span>Disponible</span>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="visible" <%= form.visible ? 'checked' : '' %>>
+          <span>Visible en el menú</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="imagen">Imagen <span class="muted">(JPG, PNG o WEBP · máximo 5 MB)</span></label>
+      <input id="imagen" name="imagen" type="file" accept="image/jpeg,image/png,image/webp">
+      <div class="image-preview">
+        <% if (form.imagen_path) { %>
+          <img id="preview" src="<%= form.imagen_path %>" alt="Vista previa">
+        <% } else { %>
+          <img id="preview" alt="Vista previa" hidden>
+        <% } %>
+      </div>
+      <% if (form.imagen_path) { %>
+        <label class="checkbox">
+          <input type="checkbox" name="eliminar_imagen">
+          <span>Quitar la imagen actual</span>
+        </label>
+      <% } %>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit"><%= product ? 'Guardar cambios' : 'Crear producto' %></button>
+      <a class="btn btn-ghost" href="/admin/productos">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+<script src="/js/admin.js"></script>
+<%- include('../../partials/footer') %>

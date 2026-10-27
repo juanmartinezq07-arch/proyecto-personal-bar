@@ -1,0 +1,107 @@
+<%- include('../../partials/header') %>
+
+<div class="container section">
+  <%- include('../../partials/admin-nav') %>
+
+  <div class="page-heading admin-heading">
+    <div>
+      <p class="eyebrow">Catálogo</p>
+      <h1>Productos</h1>
+    </div>
+    <a class="btn btn-primary" href="/admin/productos/nuevo">Nuevo producto</a>
+  </div>
+
+  <% if (categories.length === 0) { %>
+    <div class="card">
+      <p class="muted">Primero creá una categoría para poder cargar productos.</p>
+      <a class="btn btn-ghost" href="/admin/categorias/nueva">Nueva categoría</a>
+    </div>
+  <% } else { %>
+    <% categories.forEach((category) => { %>
+      <% const categoryProducts = products.filter((product) => product.categoria_id === category.id); %>
+      <section class="card stack">
+        <div class="section-heading">
+          <div>
+            <h2><%= category.nombre %></h2>
+            <p class="muted">
+              <%= categoryProducts.length %> producto<%= categoryProducts.length === 1 ? '' : 's' %>
+              <% if (!category.activo) { %> · categoría oculta<% } %>
+            </p>
+          </div>
+          <a class="btn btn-small btn-ghost" href="/admin/productos/nuevo?categoria=<%= category.id %>">Agregar producto</a>
+        </div>
+
+        <% if (categoryProducts.length === 0) { %>
+          <p class="muted">Sin productos en esta categoría.</p>
+        <% } else { %>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Producto</th>
+                  <th>Precio</th>
+                  <th>Disponible</th>
+                  <th>Visible</th>
+                  <th>Orden</th>
+                  <th class="actions-col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% categoryProducts.forEach((product, index) => { %>
+                  <tr>
+                    <td>
+                      <div class="thumb">
+                        <% if (product.imagen_path) { %>
+                          <img src="<%= product.imagen_path %>" alt="<%= product.nombre %>">
+                        <% } else { %>
+                          <span class="thumb-placeholder"><%= product.nombre.charAt(0) %></span>
+                        <% } %>
+                      </div>
+                    </td>
+                    <td>
+                      <strong><%= product.nombre %></strong>
+                      <% if (product.descripcion) { %><p class="muted small"><%= product.descripcion %></p><% } %>
+                    </td>
+                    <td><%= formatPrice(product.precio) %></td>
+                    <td>
+                      <form method="post" action="/admin/productos/<%= product.id %>/disponibilidad">
+                        <button type="submit" class="badge button-badge <%= product.disponible ? 'badge-ok' : 'badge-warn' %>">
+                          <%= product.disponible ? 'Sí' : 'No' %>
+                        </button>
+                      </form>
+                    </td>
+                    <td>
+                      <form method="post" action="/admin/productos/<%= product.id %>/visibilidad">
+                        <button type="submit" class="badge button-badge <%= product.visible ? 'badge-ok' : 'badge-muted' %>">
+                          <%= product.visible ? 'Visible' : 'Oculto' %>
+                        </button>
+                      </form>
+                    </td>
+                    <td>
+                      <div class="order-controls">
+                        <form method="post" action="/admin/productos/<%= product.id %>/mover">
+                          <input type="hidden" name="direction" value="up">
+                          <button type="submit" class="icon-button" title="Subir" <%= index === 0 ? 'disabled' : '' %>>↑</button>
+                        </form>
+                        <form method="post" action="/admin/productos/<%= product.id %>/mover">
+                          <input type="hidden" name="direction" value="down">
+                          <button type="submit" class="icon-button" title="Bajar" <%= index === categoryProducts.length - 1 ? 'disabled' : '' %>>↓</button>
+                        </form>
+                      </div>
+                    </td>
+                    <td>
+                      <a class="btn btn-small btn-ghost" href="/admin/productos/<%= product.id %>/editar">Editar</a>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </section>
+    <% }) %>
+  <% } %>
+</div>
+
+<%- include('../../partials/footer') %>
